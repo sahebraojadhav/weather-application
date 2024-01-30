@@ -15,8 +15,8 @@
 
         <div class="weather">
             <img src="images/rain.png" alt="raniing class="weather-icon">
-            <h1 class="temp">22°F</h1>
-            <h2 class="city">New York</h2>
+            <h1 class="temp">22°c</h1>
+            <h2 class="city">Benglore</h2>
         </div>
 
         <div class="details">
@@ -36,20 +36,35 @@
             </div>
         </div>
     </div>
-
+    
+    
     <script>
         const apiKey="53fface8342cdf328b8ec09efdd69330";
     
-        const apiUrl="https://api.openweathermap.org/data/2.5/weather?units=metric&q=bangalore"
-    
-        async function checkWeather(){
-            const response=await fetch(apiUrl + `&appid=${apiKey}` );
+        const apiUrl="https://api.openweathermap.org/data/2.5/weather?q="
+        
+        const searchBox=document.querySelector(".search input")
+        const searchBtn=document.querySelector(".search button")
+
+        async function checkWeather(city){
+            console.log(apiUrl +city+`&appid=${apiKey}`);
+            const response=await fetch(apiUrl + city +`&appid=${apiKey}` );
             var data=await response.json();
             console.log(data);
+
+            document.querySelector(".city").innerHTML=data.name;
+            document.querySelector(".temp").innerHTML=data.main.temp + "°c";
+            document.querySelector(".humidity").innerHTML=data.main.humidity;
+            document.querySelector(".wind").innerHTML=data.wind.speed;
         }
 
-        checkWeather();
+        searchBtn.addEventListener("click",()=>{
+            checkWeather(searchBox.value)
+        })
+
     </script> 
+
+
 
 </body>
 </html>
