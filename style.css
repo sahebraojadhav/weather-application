@@ -107,3 +107,8 @@ body{
 .speed{
     margin-left: 5px;
 }
+
+.weather{
+    display: none;
+    
+}

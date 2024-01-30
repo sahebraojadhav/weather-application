@@ -14,10 +14,10 @@
         </div>
 
         <div class="weather">
-            <img src="images/rain.png" alt="raniing class="weather-icon">
+            <img src="images/rain.png" alt="rain" class="weather-icon">
             <h1 class="temp">22°c</h1>
             <h2 class="city">Benglore</h2>
-        </div>
+        
 
         <div class="details">
             <div class="col">
@@ -36,15 +36,19 @@
             </div>
         </div>
     </div>
+    </div>
     
     
     <script>
         const apiKey="53fface8342cdf328b8ec09efdd69330";
     
-        const apiUrl="https://api.openweathermap.org/data/2.5/weather?q="
+        const apiUrl="https://api.openweathermap.org/data/2.5/weather?units=metric&q="
         
         const searchBox=document.querySelector(".search input")
         const searchBtn=document.querySelector(".search button")
+        console.log(searchBtn);
+        const weatherIcon=document.querySelector(".weather-icon");
+        console.log(weatherIcon);
 
         async function checkWeather(city){
             console.log(apiUrl +city+`&appid=${apiKey}`);
@@ -56,6 +60,24 @@
             document.querySelector(".temp").innerHTML=data.main.temp + "°c";
             document.querySelector(".humidity").innerHTML=data.main.humidity;
             document.querySelector(".wind").innerHTML=data.wind.speed;
+
+            if(data.weather[0].main=="Clouds"){
+                console.log("weather icon",weatherIcon);
+
+                weatherIcon.src="images/clouds.png"
+            }
+            else if(data.weather[0].main=="Clear"){
+                weatherIcon.src="images/clear.png"
+            }
+            else if(data.weather[0].main=="Rain"){
+                weatherIcon.src="images/rain.png"
+          }
+        
+          else if(data.weather[0].main=="Mist"){
+                weatherIcon.src="images/mist.png"
+            }
+            
+        document.querySelector(".weather").style.display="block"
         }
 
         searchBtn.addEventListener("click",()=>{
